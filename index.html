@@ -1,147 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Healthy Living Companion</title>
-  <!-- Link to Google Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
-  <!-- Link to the external CSS file -->
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <!-- Authentication Section -->
-  <section class="auth-section" id="auth-section">
-    <div id="auth-form">
-      <h2 id="auth-title">Register</h2>
-      <form id="register-form">
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" required />
-        <label for="register-password">Password:</label>
-        <input type="password" id="register-password" required />
-        <button type="submit">Register</button>
-      </form>
-      <div class="switch-button" id="show-login">Already have an account? Log in</div>
-    </div>
-    <div id="login-form" style="display: none;">
-      <h2>Login</h2>
-      <form id="login-form">
-        <label for="login-email">Email:</label>
-        <input type="email" id="login-email" required />
-        <label for="login-password">Password:</label>
-        <input type="password" id="login-password" required />
-        <button type="submit">Login</button>
-      </form>
-      <div class="switch-button" id="show-register">Don't have an account? Register</div>
-    </div>
-  </section>
+document.addEventListener('DOMContentLoaded', () => {
+  // Authentication Section
+  const authSection = document.getElementById('auth-section');
+  const showLoginBtn = document.getElementById('show-login');
+  const showRegisterBtn = document.getElementById('show-register');
+  const registerForm = document.getElementById('register-form');
+  const loginForm = document.getElementById('login-form');
 
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#calorie-counter">Calorie Counter</a></li>
-        <li><a href="#info">Information</a></li>
-        <li><a href="#feedback">Feedback</a></li>
-      </ul>
-    </nav>
-  </header>
+  if (showLoginBtn && showRegisterBtn && registerForm && loginForm) {
+    showLoginBtn.addEventListener('click', () => {
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+      document.getElementById('auth-title').innerText = 'Login';
+    });
 
-  <div class="hero">
-    <div>
-      <h1>The Key To A Healthy Life</h1>
-      <a href="#calorie-counter" class="cta-button">Get Started</a>
-    </div>
-  </div>
+    showRegisterBtn.addEventListener('click', () => {
+      registerForm.style.display = 'block';
+      loginForm.style.display = 'none';
+      document.getElementById('auth-title').innerText = 'Register';
+    });
+  }
 
-  <main>
-    <section id="calorie-counter">
-      <h1>Calorie Counter</h1>
-      <form id="calorie-form">
-        <label for="age">Age:</label>
-        <input type="number" id="age" required />
-        <label for="height">Height (cm):</label>
-        <input type="number" id="height" required />
-        <label for="weight">Weight (kg):</label>
-        <input type="number" id="weight" required />
-        <button type="submit">Calculate</button>
-      </form>
-      <div id="calorie-result"></div>
-    </section>
+  // Handle calorie calculation
+  const calorieForm = document.getElementById('calorie-form');
+  const calorieResult = document.getElementById('calorie-result');
 
-    <section id="info">
-      <h1>Information</h1>
-      <form id="info-form">
-        <label for="info-type">Select Type:</label>
-        <select id="info-type" required>
-          <option value="" disabled selected>Select a type</option>
-          <option value="dishes">Dishes</option>
-          <option value="symptoms">Symptoms</option>
-        </select>
-        <label for="info-name">Name:</label>
-        <input type="text" id="info-name" required />
-        <div id="dishes-info" style="display: none;">
-          <label for="dish">Dish:</label>
-          <select id="dish">
-            <option value="" disabled selected>Select a dish</option>
-            <option value="shawarma">Shawarma</option>
-            <option value="falafel">Falafel</option>
-            <option value="fool-medames">Fool Medames</option>
-            <option value="koshari">Koshari</option>
-            <option value="fattah">Fattah</option>
-            <option value="mahshi">Mahshi</option>
-            <option value="molokhia">Molokhia</option>
-          </select>
-          <label for="ingredients">Ingredients:</label>
-          <textarea id="ingredients" rows="4" required></textarea>
-          <label for="instructions">Instructions:</label>
-          <textarea id="instructions" rows="4" required></textarea>
-        </div>
-        <div id="symptoms-info" style="display: none;">
-          <label for="symptom">Symptom:</label>
-          <select id="symptom">
-            <option value="" disabled selected>Select a symptom</option>
-            <option value="flu">Flu</option>
-            <option value="fever">Fever</option>
-            <option value="headache">Headache</option>
-            <option value="stomachache">Stomach Ache</option>
-            <option value="covid-19">COVID-19</option>
-          </select>
-          <label for="cure">Common Cure:</label>
-          <textarea id="cure" rows="4" required></textarea>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <div id="info-result"></div>
-    </section>
+  if (calorieForm && calorieResult) {
+    calorieForm.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-    <section id="feedback">
-      <h1>Feedback</h1>
-      <form id="feedback-form">
-        <label for="feedback-name">Your Name:</label>
-        <input type="text" id="feedback-name" required />
-        <label for="feedback-rate">Rate (1-5):</label>
-        <div class="rating">
-          <input type="radio" id="feedback-rate-1" name="feedback-rate" value="1" required />
-          <label for="feedback-rate-1">1</label>
-          <input type="radio" id="feedback-rate-2" name="feedback-rate" value="2" />
-          <label for="feedback-rate-2">2</label>
-          <input type="radio" id="feedback-rate-3" name="feedback-rate" value="3" />
-          <label for="feedback-rate-3">3</label>
-          <input type="radio" id="feedback-rate-4" name="feedback-rate" value="4" />
-          <label for="feedback-rate-4">4</label>
-          <input type="radio" id="feedback-rate-5" name="feedback-rate" value="5" />
-          <label for="feedback-rate-5">5</label>
-        </div>
-        <label for="feedback-text">Your Feedback:</label>
-        <textarea id="feedback-text" rows="4" required></textarea>
-        <button type="submit">Submit</button>
-      </form>
-      <div id="feedback-result"></div>
-    </section>
-  </main>
+      const age = parseInt(document.getElementById('age').value);
+      const height = parseInt(document.getElementById('height').value);
+      const weight = parseInt(document.getElementById('weight').value);
 
-  <!-- Link to the external JavaScript file -->
-  <script src="script.js"></script>
-</body>
-</html>
+      // Basic BMR formula for demonstration (simplified)
+      const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // Mifflin-St Jeor Equation for men
+      calorieResult.innerText = `Your estimated daily caloric needs are ${Math.round(bmr)} calories/day.`;
+    });
+  }
+
+  // Toggle info sections
+  const infoTypeSelect = document.getElementById('info-type');
+  const dishesInfo = document.getElementById('dishes-info');
+  const symptomsInfo = document.getElementById('symptoms-info');
+  const dishSelect = document.getElementById('dish');
+  const symptomSelect = document.getElementById('symptom');
+  const ingredientsTextArea = document.getElementById('ingredients');
+  const instructionsTextArea = document.getElementById('instructions');
+  const cureTextArea = document.getElementById('cure');
+
+  const dishDetails = {
+    shawarma: {
+      ingredients: 'Chicken, garlic, yogurt, lemon juice, spices',
+      instructions: 'Mix ingredients, marinate chicken, cook on grill.',
+    },
+    falafel: {
+      ingredients: 'Chickpeas, onions, garlic, parsley, cumin',
+      instructions: 'Blend ingredients, form into balls, fry in oil.',
+    },
+    'fool-medames': {
+      ingredients: 'Fava beans, garlic, lemon, olive oil, cumin',
+      instructions: 'Cook beans, mix with other ingredients, serve warm.',
+    },
+    koshari: {
+      ingredients: 'Rice, lentils, pasta, tomato sauce, chickpeas',
+      instructions: 'Cook each ingredient separately, mix together, serve with sauce.',
+    },
+    fattah: {
+      ingredients: 'Bread, rice, meat, yogurt, tomato sauce',
+      instructions: 'Layer bread, rice, meat, top with sauce and yogurt.',
+    },
+    mahshi: {
+      ingredients: 'Vegetables (zucchini, bell peppers), rice, spices',
+      instructions: 'Stuff vegetables with rice mixture, cook in tomato sauce.',
+    },
+    molokhia: {
+      ingredients: 'Molokhia leaves, chicken, garlic, coriander',
+      instructions: 'Cook molokhia leaves with chicken and spices.',
+    },
+  };
+
+  const symptomCures = {
+    flu: 'Rest, drink fluids, and use over-the-counter medications.',
+    fever: 'Stay hydrated, rest, and take fever reducers like ibuprofen.',
+    headache: 'Rest, hydrate, and use pain relievers like acetaminophen.',
+    stomachache: 'Eat bland foods, stay hydrated, and rest.',
+    'covid-19': 'Follow public health guidelines, rest, and consult a healthcare provider.',
+  };
+
+  if (infoTypeSelect) {
+    infoTypeSelect.addEventListener('change', (event) => {
+      const infoType = event.target.value;
+      if (infoType === 'dishes') {
+        dishesInfo.style.display = 'block';
+        symptomsInfo.style.display = 'none';
+      } else if (infoType === 'symptoms') {
+        dishesInfo.style.display = 'none';
+        symptomsInfo.style.display = 'block';
+      }
+    });
+  }
+
+  if (dishSelect) {
+    dishSelect.addEventListener('change', (event) => {
+      const selectedDish = event.target.value;
+      const details = dishDetails[selectedDish];
+      if (details) {
+        ingredientsTextArea.value = details.ingredients;
+        instructionsTextArea.value = details.instructions;
+      } else {
+        ingredientsTextArea.value = '';
+        instructionsTextArea.value = '';
+      }
+    });
+  }
+
+  if (symptomSelect) {
+    symptomSelect.addEventListener('change', (event) => {
+      const selectedSymptom = event.target.value;
+      const cure = symptomCures[selectedSymptom];
+      if (cure) {
+        cureTextArea.value = cure;
+      } else {
+        cureTextArea.value = '';
+      }
+    });
+  }
+
+  // Handle feedback submission
+  const feedbackForm = document.getElementById('feedback-form');
+  const feedbackResult = document.getElementById('feedback-result');
+
+  if (feedbackForm && feedbackResult) {
+    feedbackForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      
+      const name = document.getElementById('feedback-name').value;
+      const rating = document.querySelector('input[name="feedback-rate"]:checked');
+      const feedbackText = document.getElementById('feedback-text').value;
+      
+      if (!rating) {
+        feedbackResult.innerText = 'Please select a rating.';
+        return;
+      }
+
+      feedbackResult.innerText = `Thank you, ${name}! Your rating: ${rating.value}. Feedback: ${feedbackText}`;
+    });
+  }
+});
