@@ -87,25 +87,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Handle info submission
-  document.getElementById('info-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    
+  // Display info based on selection
+  function updateInfoDisplay() {
     const infoType = document.getElementById('info-type').value;
     let result = '';
-    
+
     if (infoType === 'dishes') {
       const dish = document.getElementById('dish').value;
-      const { ingredients, instructions } = dishDetails[dish] || {};
-      result = `Dish: ${dish}\nIngredients: ${ingredients || 'N/A'}\nInstructions: ${instructions || 'N/A'}`;
+      const details = dishDetails[dish];
+      if (details) {
+        result = `Dish: ${dish}\nIngredients: ${details.ingredients}\nInstructions: ${details.instructions}`;
+      } else {
+        result = 'Dish not found';
+      }
     } else if (infoType === 'symptoms') {
       const symptom = document.getElementById('symptom').value;
       result = `Symptom: ${symptom}\nCommon Cure: ${symptomCures[symptom] || 'No information available'}`;
     }
-    
-    const infoResult = document.getElementById('info-result');
-    infoResult.innerText = result;
-  });
+
+    document.getElementById('info-result').innerText = result;
+  }
+
+  // Attach event listeners to update info display when the selection changes
+  document.getElementById('dish').addEventListener('change', updateInfoDisplay);
+  document.getElementById('symptom').addEventListener('change', updateInfoDisplay);
+
+  // Initial call to set the correct display based on the default selected options
+  updateInfoDisplay();
 
   // Handle feedback submission
   document.getElementById('feedback-form').addEventListener('submit', (event) => {
