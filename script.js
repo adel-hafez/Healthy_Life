@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Authentication Section
-  const authSection = document.getElementById('auth-section');
   const showLoginBtn = document.getElementById('show-login');
   const showRegisterBtn = document.getElementById('show-register');
   const registerForm = document.getElementById('register-form');
