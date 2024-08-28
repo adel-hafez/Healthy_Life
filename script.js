@@ -5,31 +5,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const registerForm = document.getElementById('register-form');
   const loginForm = document.getElementById('login-form');
   
-  showLoginBtn.addEventListener('click', () => {
-    registerForm.style.display = 'none';
-    loginForm.style.display = 'block';
-    document.getElementById('auth-title').innerText = 'Login';
-  });
-  
-  showRegisterBtn.addEventListener('click', () => {
-    registerForm.style.display = 'block';
-    loginForm.style.display = 'none';
-    document.getElementById('auth-title').innerText = 'Register';
-  });
-  
+  if (showLoginBtn && showRegisterBtn && registerForm && loginForm) {
+    showLoginBtn.addEventListener('click', () => {
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+      document.getElementById('auth-title').innerText = 'Login';
+    });
+
+    showRegisterBtn.addEventListener('click', () => {
+      registerForm.style.display = 'block';
+      loginForm.style.display = 'none';
+      document.getElementById('auth-title').innerText = 'Register';
+    });
+  }
+
   // Handle calorie calculation
-  document.getElementById('calorie-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    
-    const age = parseInt(document.getElementById('age').value);
-    const height = parseInt(document.getElementById('height').value);
-    const weight = parseInt(document.getElementById('weight').value);
-    
-    const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // BMR formula for males
-    const calorieResult = document.getElementById('calorie-result');
-    
-    calorieResult.innerText = `Your BMR is ${bmr.toFixed(2)} calories/day.`;
-  });
+  const calorieForm = document.getElementById('calorie-form');
+  const calorieResult = document.getElementById('calorie-result');
+
+  if (calorieForm && calorieResult) {
+    calorieForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const age = parseInt(document.getElementById('age').value);
+      const height = parseInt(document.getElementById('height').value);
+      const weight = parseInt(document.getElementById('weight').value);
+
+      if (isNaN(age) || isNaN(height) || isNaN(weight)) {
+        calorieResult.innerText = 'Please enter valid numbers for age, height, and weight.';
+        return;
+      }
+
+      const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // BMR formula for males
+      calorieResult.innerText = `Your BMR is ${bmr.toFixed(2)} calories/day.`;
+    });
+  }
 
   // Ingredients and instructions for dishes
   const dishDetails = {
@@ -73,57 +83,88 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   
   // Toggle info sections
-  document.getElementById('info-type').addEventListener('change', (event) => {
-    const infoType = event.target.value;
-    const dishesInfo = document.getElementById('dishes-info');
-    const symptomsInfo = document.getElementById('symptoms-info');
-    
-    if (infoType === 'dishes') {
-      dishesInfo.style.display = 'block';
-      symptomsInfo.style.display = 'none';
-    } else if (infoType === 'symptoms') {
-      dishesInfo.style.display = 'none';
-      symptomsInfo.style.display = 'block';
-    }
-  });
+  const infoTypeSelect = document.getElementById('info-type');
+  const dishesInfo = document.getElementById('dishes-info');
+  const symptomsInfo = document.getElementById('symptoms-info');
+
+  if (infoTypeSelect) {
+    infoTypeSelect.addEventListener('change', (event) => {
+      const infoType = event.target.value;
+      if (dishesInfo && symptomsInfo) {
+        if (infoType === 'dishes') {
+          dishesInfo.style.display = 'block';
+          symptomsInfo.style.display = 'none';
+        } else if (infoType === 'symptoms') {
+          dishesInfo.style.display = 'none';
+          symptomsInfo.style.display = 'block';
+        }
+      }
+    });
+  }
 
   // Display info based on selection
   function updateInfoDisplay() {
-    const infoType = document.getElementById('info-type').value;
+    const infoType = infoTypeSelect ? infoTypeSelect.value : '';
     let result = '';
 
     if (infoType === 'dishes') {
-      const dish = document.getElementById('dish').value;
-      const details = dishDetails[dish];
-      if (details) {
-        result = `Dish: ${dish}\nIngredients: ${details.ingredients}\nInstructions: ${details.instructions}`;
-      } else {
-        result = 'Dish not found';
+      const dishSelect = document.getElementById('dish');
+      if (dishSelect) {
+        const dish = dishSelect.value;
+        const details = dishDetails[dish];
+        if (details) {
+          result = `Dish: ${dish}\nIngredients: ${details.ingredients}\nInstructions: ${details.instructions}`;
+        } else {
+          result = 'Dish not found';
+        }
       }
     } else if (infoType === 'symptoms') {
-      const symptom = document.getElementById('symptom').value;
-      result = `Symptom: ${symptom}\nCommon Cure: ${symptomCures[symptom] || 'No information available'}`;
+      const symptomSelect = document.getElementById('symptom');
+      if (symptomSelect) {
+        const symptom = symptomSelect.value;
+        result = `Symptom: ${symptom}\nCommon Cure: ${symptomCures[symptom] || 'No information available'}`;
+      }
     }
 
-    document.getElementById('info-result').innerText = result;
+    const infoResult = document.getElementById('info-result');
+    if (infoResult) {
+      infoResult.innerText = result;
+    }
   }
 
   // Attach event listeners to update info display when the selection changes
-  document.getElementById('dish').addEventListener('change', updateInfoDisplay);
-  document.getElementById('symptom').addEventListener('change', updateInfoDisplay);
+  const dishSelect = document.getElementById('dish');
+  const symptomSelect = document.getElementById('symptom');
+
+  if (dishSelect) {
+    dishSelect.addEventListener('change', updateInfoDisplay);
+  }
+
+  if (symptomSelect) {
+    symptomSelect.addEventListener('change', updateInfoDisplay);
+  }
 
   // Initial call to set the correct display based on the default selected options
   updateInfoDisplay();
 
   // Handle feedback submission
-  document.getElementById('feedback-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    
-    const name = document.getElementById('feedback-name').value;
-    const rating = document.querySelector('input[name="feedback-rate"]:checked').value;
-    const feedbackText = document.getElementById('feedback-text').value;
-    
-    const feedbackResult = document.getElementById('feedback-result');
-    feedbackResult.innerText = `Thank you, ${name}! Your rating: ${rating}. Feedback: ${feedbackText}`;
-  });
+  const feedbackForm = document.getElementById('feedback-form');
+  const feedbackResult = document.getElementById('feedback-result');
+
+  if (feedbackForm && feedbackResult) {
+    feedbackForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      
+      const name = document.getElementById('feedback-name').value;
+      const rating = document.querySelector('input[name="feedback-rate"]:checked');
+      const feedbackText = document.getElementById('feedback-text').value;
+      
+      if (!rating) {
+        feedbackResult.innerText = 'Please select a rating.';
+        return;
+      }
+
+      feedbackResult.innerText = `Thank you, ${name}! Your rating: ${rating.value}. Feedback: ${feedbackText}`;
+    });
+  }
 });
