@@ -12,9 +12,9 @@
 <body>
   <!-- Authentication Section -->
   <section class="auth-section" id="auth-section">
-    <div id="auth-register-form">
+    <div id="auth-form">
       <h2 id="auth-title">Register</h2>
-      <form id="register-form" action="#" method="post">
+      <form id="register-form">
         <label for="register-email">Email:</label>
         <input type="email" id="register-email" required />
         <label for="register-password">Password:</label>
@@ -23,9 +23,9 @@
       </form>
       <div class="switch-button" id="show-login">Already have an account? Log in</div>
     </div>
-    <div id="auth-login-form" style="display: none;">
+    <div id="login-form" style="display: none;">
       <h2>Login</h2>
-      <form id="login-form" action="#" method="post">
+      <form id="login-form">
         <label for="login-email">Email:</label>
         <input type="email" id="login-email" required />
         <label for="login-password">Password:</label>
@@ -57,7 +57,7 @@
   <main>
     <section id="calorie-counter">
       <h1>Calorie Counter</h1>
-      <form id="calorie-form" action="#" method="post">
+      <form id="calorie-form">
         <label for="age">Age:</label>
         <input type="number" id="age" required />
         <label for="height">Height (cm):</label>
@@ -71,7 +71,7 @@
 
     <section id="info">
       <h1>Information</h1>
-      <form id="info-form" action="#" method="post">
+      <form id="info-form">
         <label for="info-type">Select Type:</label>
         <select id="info-type" required>
           <option value="" disabled selected>Select a type</option>
@@ -117,7 +117,7 @@
 
     <section id="feedback">
       <h1>Feedback</h1>
-      <form id="feedback-form" action="#" method="post">
+      <form id="feedback-form">
         <label for="feedback-name">Your Name:</label>
         <input type="text" id="feedback-name" required />
         <label for="feedback-rate">Rate (1-5):</label>
