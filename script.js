@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Authentication Section
   const authSection = document.getElementById('auth-section');
   const showLoginBtn = document.getElementById('show-login');
   const showRegisterBtn = document.getElementById('show-register');
@@ -99,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
           symptomsInfo.style.display = 'block';
         }
       }
+      updateInfoDisplay(); // Ensure information is updated when the type changes
     });
   }
 
