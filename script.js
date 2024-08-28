@@ -32,124 +32,99 @@ document.addEventListener('DOMContentLoaded', () => {
       const height = parseInt(document.getElementById('height').value);
       const weight = parseInt(document.getElementById('weight').value);
 
-      if (isNaN(age) || isNaN(height) || isNaN(weight)) {
-        calorieResult.innerText = 'Please enter valid numbers for age, height, and weight.';
-        return;
-      }
-
-      const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // BMR formula for males
-      calorieResult.innerText = `Your BMR is ${bmr.toFixed(2)} calories/day.`;
+      // Basic BMR formula for demonstration (simplified)
+      const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // Mifflin-St Jeor Equation for men
+      calorieResult.innerText = `Your estimated daily caloric needs are ${Math.round(bmr)} calories/day.`;
     });
   }
-
-  // Ingredients and instructions for dishes
-  const dishDetails = {
-    shawarma: {
-      ingredients: "Chicken, garlic, yogurt, lemon juice, spices",
-      instructions: "Marinate chicken, cook on a grill, wrap in pita with vegetables"
-    },
-    falafel: {
-      ingredients: "Chickpeas, onions, garlic, parsley, spices",
-      instructions: "Blend ingredients, form into balls, deep fry"
-    },
-    'fool-medames': {
-      ingredients: "Fava beans, garlic, lemon, cumin, olive oil",
-      instructions: "Cook beans, mix with other ingredients, serve warm"
-    },
-    koshari: {
-      ingredients: "Rice, lentils, pasta, tomato sauce, onions",
-      instructions: "Cook ingredients separately, mix, top with tomato sauce"
-    },
-    fattah: {
-      ingredients: "Bread, rice, meat, yogurt, garlic, vinegar",
-      instructions: "Layer ingredients, top with yogurt and garlic sauce"
-    },
-    mahshi: {
-      ingredients: "Vegetables (zucchini, bell peppers), rice, meat, spices",
-      instructions: "Stuff vegetables with rice mixture, cook in tomato sauce"
-    },
-    molokhia: {
-      ingredients: "Molokhia leaves, chicken, garlic, coriander",
-      instructions: "Cook leaves with chicken, add garlic and coriander, serve with rice"
-    }
-  };
-
-  // Symptom cures
-  const symptomCures = {
-    flu: "Rest, hydrate, and take over-the-counter medications. Consult a doctor if symptoms persist.",
-    fever: "Rest, drink fluids, and use fever reducers like acetaminophen or ibuprofen.",
-    headache: "Rest, stay hydrated, and use pain relievers if needed. Consider reducing screen time.",
-    stomachache: "Stay hydrated, eat bland foods, and avoid fatty or spicy foods. Consult a doctor if pain continues.",
-    'covid-19': "Isolate yourself, monitor symptoms, and seek medical advice. Follow CDC guidelines."
-  };
 
   // Toggle info sections
   const infoTypeSelect = document.getElementById('info-type');
   const dishesInfo = document.getElementById('dishes-info');
   const symptomsInfo = document.getElementById('symptoms-info');
+  const dishSelect = document.getElementById('dish');
+  const symptomSelect = document.getElementById('symptom');
+  const ingredientsTextArea = document.getElementById('ingredients');
+  const instructionsTextArea = document.getElementById('instructions');
+  const cureTextArea = document.getElementById('cure');
+
+  const dishDetails = {
+    shawarma: {
+      ingredients: 'Chicken, garlic, yogurt, lemon juice, spices',
+      instructions: 'Mix ingredients, marinate chicken, cook on grill.',
+    },
+    falafel: {
+      ingredients: 'Chickpeas, onions, garlic, parsley, cumin',
+      instructions: 'Blend ingredients, form into balls, fry in oil.',
+    },
+    'fool-medames': {
+      ingredients: 'Fava beans, garlic, lemon, olive oil, cumin',
+      instructions: 'Cook beans, mix with other ingredients, serve warm.',
+    },
+    koshari: {
+      ingredients: 'Rice, lentils, pasta, tomato sauce, chickpeas',
+      instructions: 'Cook each ingredient separately, mix together, serve with sauce.',
+    },
+    fattah: {
+      ingredients: 'Bread, rice, meat, yogurt, tomato sauce',
+      instructions: 'Layer bread, rice, meat, top with sauce and yogurt.',
+    },
+    mahshi: {
+      ingredients: 'Vegetables (zucchini, bell peppers), rice, spices',
+      instructions: 'Stuff vegetables with rice mixture, cook in tomato sauce.',
+    },
+    molokhia: {
+      ingredients: 'Molokhia leaves, chicken, garlic, coriander',
+      instructions: 'Cook molokhia leaves with chicken and spices.',
+    },
+  };
+
+  const symptomCures = {
+    flu: 'Rest, drink fluids, and use over-the-counter medications.',
+    fever: 'Stay hydrated, rest, and take fever reducers like ibuprofen.',
+    headache: 'Rest, hydrate, and use pain relievers like acetaminophen.',
+    stomachache: 'Eat bland foods, stay hydrated, and rest.',
+    'covid-19': 'Follow public health guidelines, rest, and consult a healthcare provider.',
+  };
 
   if (infoTypeSelect) {
     infoTypeSelect.addEventListener('change', (event) => {
       const infoType = event.target.value;
-      if (dishesInfo && symptomsInfo) {
-        if (infoType === 'dishes') {
-          dishesInfo.style.display = 'block';
-          symptomsInfo.style.display = 'none';
-        } else if (infoType === 'symptoms') {
-          dishesInfo.style.display = 'none';
-          symptomsInfo.style.display = 'block';
-        }
-        updateInfoDisplay(); // Ensure information is updated when the type changes
+      if (infoType === 'dishes') {
+        dishesInfo.style.display = 'block';
+        symptomsInfo.style.display = 'none';
+      } else if (infoType === 'symptoms') {
+        dishesInfo.style.display = 'none';
+        symptomsInfo.style.display = 'block';
       }
     });
   }
 
-  // Display info based on selection
-  function updateInfoDisplay() {
-    const infoType = infoTypeSelect ? infoTypeSelect.value : '';
-    
-    if (infoType === 'dishes') {
-      const dishSelect = document.getElementById('dish');
-      const ingredientsTextArea = document.getElementById('ingredients');
-      const instructionsTextArea = document.getElementById('instructions');
-      
-      if (dishSelect) {
-        const dish = dishSelect.value;
-        const details = dishDetails[dish];
-        
-        if (details) {
-          ingredientsTextArea.value = details.ingredients;
-          instructionsTextArea.value = details.instructions;
-        } else {
-          ingredientsTextArea.value = 'Dish not found';
-          instructionsTextArea.value = '';
-        }
-      }
-    } else if (infoType === 'symptoms') {
-      const symptomSelect = document.getElementById('symptom');
-      const cureTextArea = document.getElementById('cure');
-      
-      if (symptomSelect) {
-        const symptom = symptomSelect.value;
-        cureTextArea.value = symptomCures[symptom] || 'No information available';
-      }
-    }
-  }
-
-  // Attach event listeners to update info display when the selection changes
-  const dishSelect = document.getElementById('dish');
-  const symptomSelect = document.getElementById('symptom');
-
   if (dishSelect) {
-    dishSelect.addEventListener('change', updateInfoDisplay);
+    dishSelect.addEventListener('change', (event) => {
+      const selectedDish = event.target.value;
+      const details = dishDetails[selectedDish];
+      if (details) {
+        ingredientsTextArea.value = details.ingredients;
+        instructionsTextArea.value = details.instructions;
+      } else {
+        ingredientsTextArea.value = '';
+        instructionsTextArea.value = '';
+      }
+    });
   }
 
   if (symptomSelect) {
-    symptomSelect.addEventListener('change', updateInfoDisplay);
+    symptomSelect.addEventListener('change', (event) => {
+      const selectedSymptom = event.target.value;
+      const cure = symptomCures[selectedSymptom];
+      if (cure) {
+        cureTextArea.value = cure;
+      } else {
+        cureTextArea.value = '';
+      }
+    });
   }
-
-  // Initial call to set the correct display based on the default selected options
-  updateInfoDisplay();
 
   // Handle feedback submission
   const feedbackForm = document.getElementById('feedback-form');
