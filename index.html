@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healthy Living Companion</title>
+  <!-- Link to Google Fonts -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Authentication Section -->
+  <section class="auth-section" id="auth-section">
+    <div id="auth-form">
+      <h2 id="auth-title">Register</h2>
+      <form id="register-form">
+        <label for="register-email">Email:</label>
+        <input type="email" id="register-email" required />
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" required />
+        <button type="submit">Register</button>
+      </form>
+      <div class="switch-button" id="show-login">Already have an account? Log in</div>
+    </div>
+    <div id="login-form" style="display: none;">
+      <h2>Login</h2>
+      <form id="login-form-alt">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" required />
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" required />
+        <button type="submit">Login</button>
+      </form>
+      <div class="switch-button" id="show-register">Don't have an account? Register</div>
+    </div>
+  </section>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#calorie-counter">Calorie Counter</a></li>
+        <li><a href="#info">Information</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>The Key To A Healthy Life</h1>
+      <a href="#calorie-counter" class="cta-button">Get Started</a>
+    </div>
+  </div>
+
+  <main>
+    <section id="calorie-counter">
+      <h1>Calorie Counter</h1>
+      <form id="calorie-form">
+        <label for="age">Age:</label>
+        <input type="number" id="age" required />
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" required />
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" required />
+        <button type="submit">Calculate</button>
+      </form>
+      <div id="calorie-result"></div>
+    </section>
+
+    <section id="info">
+      <h1>Information</h1>
+      <form id="info-form">
+        <label for="info-type">Select Type:</label>
+        <select id="info-type" required>
+          <option value="" disabled selected>Select a type</option>
+          <option value="dishes">Dishes</option>
+          <option value="symptoms">Symptoms</option>
+        </select>
+        <label for="info-name">Name:</label>
+        <input type="text" id="info-name" required />
+        <div id="dishes-info" style="display: none;">
+          <label for="dish">Dish:</label>
+          <select id="dish">
+            <option value="" disabled selected>Select a dish</option>
+            <option value="shawarma">Shawarma</option>
+            <option value="falafel">Falafel</option>
+            <option value="fool-medames">Fool Medames</option>
+            <option value="koshari">Koshari</option>
+            <option value="fattah">Fattah</option>
+            <option value="mahshi">Mahshi</option>
+            <option value="molokhia">Molokhia</option>
+          </select>
+          <label for="ingredients">Ingredients:</label>
+          <textarea id="ingredients" rows="4" required></textarea>
+          <label for="instructions">Instructions:</label>
+          <textarea id="instructions" rows="4" required></textarea>
+        </div>
+        <div id="symptoms-info" style="display: none;">
+          <label for="symptom">Symptom:</label>
+          <select id="symptom">
+            <option value="" disabled selected>Select a symptom</option>
+            <option value="flu">Flu</option>
+            <option value="fever">Fever</option>
+            <option value="headache">Headache</option>
+            <option value="stomachache">Stomach Ache</option>
+            <option value="covid-19">COVID-19</option>
+          </select>
+          <label for="cure">Common Cure:</label>
+          <textarea id="cure" rows="4" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="info-result"></div>
+    </section>
+
+    <section id="feedback">
+      <h1>Feedback</h1>
+      <form id="feedback-form">
+        <label for="feedback-name">Your Name:</label>
+        <input type="text" id="feedback-name" required />
+        <label for="feedback-rate">Rate (1-5):</label>
+        <div class="rating">
+          <input type="radio" id="feedback-rate-1" name="feedback-rate" value="1" required />
+          <label for="feedback-rate-1">1</label>
+          <input type="radio" id="feedback-rate-2" name="feedback-rate" value="2" />
+          <label for="feedback-rate-2">2</label>
+          <input type="radio" id="feedback-rate-3" name="feedback-rate" value="3" />
+          <label for="feedback-rate-3">3</label>
+          <input type="radio" id="feedback-rate-4" name="feedback-rate" value="4" />
+          <label for="feedback-rate-4">4</label>
+          <input type="radio" id="feedback-rate-5" name="feedback-rate" value="5" />
+          <label for="feedback-rate-5">5</label>
+        </div>
+        <label for="feedback-text">Your Feedback:</label>
+        <textarea id="feedback-text" rows="4" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="feedback-result"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
