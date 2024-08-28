@@ -46,6 +46,7 @@ nav a:hover {
   color: #fff;
   text-align: center;
   overflow: hidden;
+  background-attachment: fixed; /* Optional: might not be needed for all browsers */
 }
 
 .hero h1 {
