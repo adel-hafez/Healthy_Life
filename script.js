@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const showRegisterBtn = document.getElementById('show-register');
   const registerForm = document.getElementById('register-form');
   const loginForm = document.getElementById('login-form');
-  
+
   if (showLoginBtn && showRegisterBtn && registerForm && loginForm) {
     showLoginBtn.addEventListener('click', () => {
       registerForm.style.display = 'none';
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stomachache: "Stay hydrated, eat bland foods, and avoid fatty or spicy foods. Consult a doctor if pain continues.",
     'covid-19': "Isolate yourself, monitor symptoms, and seek medical advice. Follow CDC guidelines."
   };
-  
+
   // Toggle info sections
   const infoTypeSelect = document.getElementById('info-type');
   const dishesInfo = document.getElementById('dishes-info');
@@ -99,8 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
           dishesInfo.style.display = 'none';
           symptomsInfo.style.display = 'block';
         }
+        updateInfoDisplay(); // Ensure information is updated when the type changes
       }
-      updateInfoDisplay(); // Ensure information is updated when the type changes
     });
   }
 
