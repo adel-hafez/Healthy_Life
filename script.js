@@ -107,30 +107,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // Display info based on selection
   function updateInfoDisplay() {
     const infoType = infoTypeSelect ? infoTypeSelect.value : '';
-    let result = '';
-
+    
     if (infoType === 'dishes') {
       const dishSelect = document.getElementById('dish');
+      const ingredientsTextArea = document.getElementById('ingredients');
+      const instructionsTextArea = document.getElementById('instructions');
+      
       if (dishSelect) {
         const dish = dishSelect.value;
         const details = dishDetails[dish];
+        
         if (details) {
-          result = `Dish: ${dish}\nIngredients: ${details.ingredients}\nInstructions: ${details.instructions}`;
+          ingredientsTextArea.value = details.ingredients;
+          instructionsTextArea.value = details.instructions;
         } else {
-          result = 'Dish not found';
+          ingredientsTextArea.value = 'Dish not found';
+          instructionsTextArea.value = '';
         }
       }
     } else if (infoType === 'symptoms') {
       const symptomSelect = document.getElementById('symptom');
+      const cureTextArea = document.getElementById('cure');
+      
       if (symptomSelect) {
         const symptom = symptomSelect.value;
-        result = `Symptom: ${symptom}\nCommon Cure: ${symptomCures[symptom] || 'No information available'}`;
+        cureTextArea.value = symptomCures[symptom] || 'No information available';
       }
-    }
-
-    const infoResult = document.getElementById('info-result');
-    if (infoResult) {
-      infoResult.innerText = result;
     }
   }
 
