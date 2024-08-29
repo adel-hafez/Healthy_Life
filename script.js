@@ -30,9 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const age = parseInt(document.getElementById('age').value);
       const height = parseInt(document.getElementById('height').value);
       const weight = parseInt(document.getElementById('weight').value);
+      const gender = document.getElementById('gender').value;
 
-      // Basic BMR formula for demonstration (simplified)
-      const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // Mifflin-St Jeor Equation for men
+      // BMR calculation based on gender
+      let bmr;
+      if (gender === 'male') {
+        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+      } else {
+        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+      }
+
       calorieResult.innerText = `Your estimated daily caloric needs are ${Math.round(bmr)} calories/day.`;
     });
   }
@@ -128,8 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle feedback submission
   const feedbackForm = document.getElementById('feedback-form');
   const feedbackResult = document.getElementById('feedback-result');
+  const feedbackRatingDisplay = document.getElementById('feedback-rating-display');
 
-  if (feedbackForm && feedbackResult) {
+  if (feedbackForm && feedbackResult && feedbackRatingDisplay) {
     feedbackForm.addEventListener('submit', (event) => {
       event.preventDefault();
       
@@ -142,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      feedbackRatingDisplay.innerText = `You selected rating: ${rating.value}`;
       feedbackResult.innerText = `Thank you, ${name}! Your rating: ${rating.value}. Feedback: ${feedbackText}`;
     });
   }
