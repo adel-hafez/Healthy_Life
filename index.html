@@ -66,6 +66,11 @@
         <input type="number" id="height" required />
         <label for="weight">Weight (kg):</label>
         <input type="number" id="weight" required />
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
         <button type="submit">Calculate</button>
       </form>
       <div id="calorie-result"></div>
@@ -124,7 +129,7 @@
         <input type="text" id="feedback-name" required />
         <label for="feedback-rate">Rate (1-5):</label>
         <div class="rating">
-          <input type="radio" id="feedback-rate-1" name="feedback-rate" value="1" required />
+          <input type="radio" id="feedback-rate-1" name="feedback-rate" value="1" />
           <label for="feedback-rate-1">1</label>
           <input type="radio" id="feedback-rate-2" name="feedback-rate" value="2" />
           <label for="feedback-rate-2">2</label>
@@ -135,6 +140,7 @@
           <input type="radio" id="feedback-rate-5" name="feedback-rate" value="5" />
           <label for="feedback-rate-5">5</label>
         </div>
+        <div id="feedback-rating-display"></div>
         <label for="feedback-text">Your Feedback:</label>
         <textarea id="feedback-text" rows="4" required></textarea>
         <button type="submit">Submit</button>
